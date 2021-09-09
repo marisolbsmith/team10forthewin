@@ -73,3 +73,4 @@ fetch(queryUrl)
         var avgDeathsNIC = total / deathsNIC.length;
         console.log(Math.round(avgDeathsNIC));
     })
+    
