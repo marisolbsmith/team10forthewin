@@ -15,7 +15,7 @@ body {
   background-color: rgb(39, 52, 95);
 }
 .button:hover {
-  background: grey;
+  background: rgb(250, 248, 248);
 }
 .MODAL {
   display: none;
@@ -26,10 +26,10 @@ body {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgb(40, 97, 97);
+  background-color: rgb(118, 121, 121);
 }
 .modal-content {
-  background-color: rgb(39, 52, 95);
+  background-color: rgba(243, 245, 253, 0.884);
   margin: 20% auto;
   padding: 2px;
   width: 70%;
