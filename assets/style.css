@@ -46,3 +46,33 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+.Estonia {
+  width: 400px;
+  height: 400px;
+  background-color: silver;
+  border-radius: 3em;
+  text-size-adjust: 10px;
+
+}
+
+.Tajikistan {
+  width: 400px;
+  height: 400px;
+  background-color: silver;
+  border-radius: 3em;
+  text-size-adjust: 10px;
+}
+.Tanzania {
+  width: 400px;
+  height: 400px;
+  background-color: silver;
+  border-radius: 3em;
+  text-size-adjust: 10px;
+}
+.Nicaragua {
+  width: 400px;
+  height: 400px;
+  background-color: silver;
+  border-radius: 3em;
+  text-size-adjust: 10px;
+}
