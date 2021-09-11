@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Low Risk Vacay</title>
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <button id="modalBtn" class="button">Click Here</button>
-    <div id="simpleModal" class="MODAL">
-      <div class="modal-content">
-        <span class="closeBtn">&times;</span>
-        <p>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Low Risk Vacay</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+
+<body>
+  <iframe src="https://ourworldindata.org/grapher/covid-containment-and-health-index" loading="lazy"
+    style="width: 100%; height: 600px; border: 0px none;"></iframe>
+  <button id="modalBtn" class="button">Click Here</button>
+  <div id="simpleModal" class="MODAL">
+    <div class="modal-content">
+      <span class="closeBtn">&times;</span>
+      <p>
           Welcome to Low risk Vacay! Let us help you find your next vacation
           spot where you can relax knowing your chances of catching the RONA is
           low. We have calculated the lowest risk countries for you, click on
           the vacation you desire and find out mask mandates, vaccination
           policies, covid cases and covid deaths.
-        </p>
-      </div>
+      </p>
     </div>
-    <div class="card-group">
+  </div>
+  <div class="card-group">
       <div class="Estonia">
         <div class="card-body text-center">
           <p class="card-text">
@@ -82,7 +85,8 @@
         </div>
       </div>
     </div>
+  <script src="./assets/script.js"></script>
+</body>
 
-    <script src="./assets/script.js"></script>
-  </body>
+
 </html>
