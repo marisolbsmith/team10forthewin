@@ -11,9 +11,7 @@ fetch(queryUrl)
     .then(function (data) {
         //Using console.log to examine the data
         console.log(data);
-        console.log(data.countries);
         countryList = data.countries;
-        console.log(countryList);
         fetch("https://restcountries.eu/rest/v2/all")
             .then(function (response) {
                 return response.json();
@@ -28,7 +26,6 @@ fetch(queryUrl)
 
                         if (element === data[c].alpha3Code) {
                             var countryN = data[c].name;
-                            console.log(element);
                             countryListName.push(countryN);
                         }
                     }
