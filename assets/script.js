@@ -219,4 +219,3 @@ function closeCountryInfo() {
 function closeModal() {
   modal.style.display = "none";
 }
-
