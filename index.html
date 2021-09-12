@@ -14,11 +14,21 @@
 
   <body>
     <iframe
-      src="https://ourworldindata.org/grapher/covid-containment-and-health-index"
+      src="https://ourworldindata.org/grapher/covid-stringency-index"
       loading="lazy"
       style="width: 70%; height: 600px; border: 0px none"
     ></iframe>
     <button id="modalBtn" class="button">Click Here</button>
+    <div class="select is-pulled-right" style="width: 200px !important; min-width: 200px; max-width: 200px;">
+      <select id="countryList">
+        <option>Select a country</option>
+      </select>
+    </div>
+    <div id="countryInfo" class="MODAL">
+      <div class="modal-content" id="countryContent">
+        <span class="closeBtn">&times;</span>
+      </div>
+    </div>
     <div id="simpleModal" class="MODAL">
       <div class="modal-content">
         <span class="closeBtn">&times;</span>
@@ -129,7 +139,7 @@
         </article>
       </div>
     </div>
-
+    <script src="./assets/countryList.js"></script>
     <script src="./assets/script.js"></script>
   </body>
 </html>
