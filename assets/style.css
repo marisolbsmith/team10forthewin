@@ -18,6 +18,32 @@ body {
 .button:hover {
   background: rgb(87, 16, 16);
 }
+#countryInfo{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+#countryContent{
+  position: relative;
+  background-color:rgb(39, 52, 95) ;
+  margin: auto;
+  padding: 0px;
+  border: 1px solid #888;
+  width: 30%; 
+}
+.modal-card-header{
+  padding: 2px 16px;
+  color: white;
+  font-size: x-large;
+}
 .MODAL {
   display: none;
   position: fixed;

@@ -25,103 +25,155 @@ then based off those answers display facial coverings,vaccination policy, intern
    Array CC and D get the average
    Then for each date average put into a new array and get the average for the whole date selected.
 */
-var countryName = "Nicaragua";
-var isoCode = "https://restcountries.eu/rest/v2/name/" + countryName;
-var countryCode;
-var countryC = "";
-var cityN;
-fetch(isoCode)
-  .then(function (response) {
-    return response.json();
-  })
+var countryName;
+document.getElementById("countryList").addEventListener('change', (event) => {
+  console.log(event.target.value)
+  countryName = event.target.value;
+  openCountryInfo();
+  getCountryInfo();
+});
+function getCountryInfo() {
+  var isoCode = "https://restcountries.eu/rest/v2/name/" + countryName;
+  var countryC = "";
+  var cityN;
+  fetch(isoCode)
+    .then(function (response) {
+      return response.json();
+    })
 
-  .then(function (data) {
-    //Using console.log to examine the data
-    console.log(data);
-    countryC = data[0].alpha3Code;
-    console.log(data[0].alpha3Code);
-    cityN = data[0].capital;
-    console.log(data[0].capital);
-    var queryUrl = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2021-08-24/2021-08-31";
-    var confirmedNIC = new Array;
-    var deathsNIC = new Array;
-    fetch(queryUrl)
-      .then(function (response) {
-        return response.json();
-      })
+    .then(function (data) {
+      //Using console.log to examine the data
+      console.log(data);
+      countryC = data[0].alpha3Code;
+      cityN = data[0].capital;
+      var weatherUrl = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2021-08-24/2021-08-31";
+      var confirmedC = new Array;
+      var deaths = new Array;
+      var stringencyN = new Array;
+      fetch(weatherUrl)
+        .then(function (response) {
+          return response.json();
+        })
 
-      .then(function (data) {
-        //Using console.log to examine the data
-        console.log(data);
-        console.log(countryC);
-        console.log(data.data["2021-08-24"][countryC]);
-        console.log(data.data["2021-08-25"][countryC]);
-        console.log(data.data["2021-08-26"][countryC]);
-        console.log(data.data["2021-08-27"][countryC]);
-        console.log(data.data["2021-08-28"][countryC]);
-        console.log(data.data["2021-08-29"][countryC]);
-        console.log(data.data["2021-08-30"][countryC]);
-        console.log(data.data["2021-08-31"][countryC]);
+        .then(function (data) {
+          //Using console.log to examine the data
+          console.log(data);
+          var modalHeader = document.createElement("header");
+          modalHeader.setAttribute("class", "modal-card-header");
+          document.getElementById("countryContent").appendChild(modalHeader);
+          var modalTitle = document.createElement("h2");
+          modalTitle.setAttribute("class", "modal-card-title, has-text-centered");
+          modalTitle.setAttribute("id", "modalT");
+          modalTitle.setAttribute("style", "color:white");
+          modalTitle.textContent = countryName;
+          console.log(modalTitle);
+          modalHeader.appendChild(modalTitle);
+          //data for confirmed cases for users country
+          for (let i = 24; i <= 31; i++) {
+            var dateC = "2021-08-" + i;
+            if (data.data[dateC][countryC] !== undefined) {
+              var cases = data.data[dateC][countryC].confirmed;
+              console.log(dateC + " " + cases);
+              confirmedC.push(cases);
+            }
 
-        //data for confirmed cases for Nicaragua
-        for (let i = 24; i <= 31; i++) {
-          var dateC = "2021-08-" + i;
-          var cases = data.data[dateC][countryC].confirmed;
-          confirmedNIC.push(cases);
-        }
-        console.log(confirmedNIC);
-        var total = 0;
-        for (var b = 0; b < confirmedNIC.length; b++) {
-          total += confirmedNIC[b];
-        }
-        var avgConfirmedNIC = total / confirmedNIC.length;
-        console.log("Confirmed cases: "+avgConfirmedNIC);
+          }
+          var totalC = 0;
+          for (var b = 0; b < confirmedC.length; b++) {
+            totalC += confirmedC[b];
+          }
+          var avgConfirmed = totalC / confirmedC.length;
+          var confirmedCases = document.createElement("p");
+          confirmedCases.textContent = "Confirmed cases: " + Math.round(avgConfirmed);
+          confirmedCases.setAttribute("style", "color:white");
+          document.getElementById("countryContent").append(confirmedCases);
+          console.log("Confirmed cases: " + Math.round(avgConfirmed));
 
-        //data for deaths for Nicaragua
-        for (let i = 24; i <= 31; i++) {
-          var dateD = "2021-08-" + i;
-          var cases = data.data[dateD][countryC].deaths;
-          deathsNIC.push(cases);
-        }
-        console.log(deathsNIC);
-        var total = 0;
-        for (var b = 0; b < deathsNIC.length; b++) {
-          total += deathsNIC[b];
-        }
-        var avgDeathsNIC = total / deathsNIC.length;
-        console.log("Deaths: " + Math.round(avgDeathsNIC));
-      })
-    //Current weather for countrys capital
-    var apiKey = "6c2b8de8ee027fb6f7f5fbbc52cf3406";
-    var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityN + "&appid=" + apiKey + "&units=imperial";
+          //data for deaths of users country
+          for (let i = 24; i <= 31; i++) {
+            var dateD = "2021-08-" + i;
+            if (data.data[dateD][countryC] !== undefined) {
+              var deathCases = data.data[dateD][countryC].deaths;
+              console.log(dateD + " " + deathCases);
+              deaths.push(deathCases);
+            }
+          }
+          var totalD = 0;
+          for (var b = 0; b < deaths.length; b++) {
+            totalD += deaths[b];
+          }
+          var avgDeaths = totalD / deaths.length;
+          var confirmedDeaths = document.createElement("p");
+          confirmedDeaths.textContent = "Confirmed deaths: " + Math.round(avgDeaths);
+          confirmedDeaths.setAttribute("style", "color:white");
+          document.getElementById("countryContent").append(confirmedDeaths);
+          console.log("Deaths: " + Math.round(avgDeaths));
 
-    fetch(queryUrl)
-      .then(function (response) {
-        return response.json();
-      })
+          //data for stringency of users country
+          for (let i = 24; i <= 31; i++) {
+            var dateS = "2021-08-" + i;
+            if (data.data[dateS][countryC] !== undefined) {
+              var stringency = data.data[dateS][countryC].stringency_legacy;
+              console.log(dateS + " " + stringency);
+              stringencyN.push(stringency);
+            }
+          }
+          var totalS = 0;
+          for (var b = 0; b < stringencyN.length; b++) {
+            totalS += stringencyN[b];
+          }
+          var avgStringency = totalS / stringencyN.length;
+          var stringencyNumber = document.createElement("p");
+          stringencyNumber.textContent = "Stringency Index: " + Math.round(avgStringency);
+          stringencyNumber.setAttribute("style", "color:white");
+          document.getElementById("countryContent").append(stringencyNumber);
+          console.log("Stringency Index: " + Math.round(avgStringency));
 
-      .then(function (data) {
-        console.log(data);
-      })
+        })
+      //Current weather for countrys capital
+      var apiKey = "6c2b8de8ee027fb6f7f5fbbc52cf3406";
+      var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityN + "&appid=" + apiKey + "&units=imperial";
 
-  })
+      fetch(weatherUrl)
+        .then(function (response) {
+          return response.json();
+        })
+
+        .then(function (data) {
+          console.log(data);
+        })
+
+    })
+}
 //get modal element
 var modal = document.getElementById("simpleModal");
+var modalInfo = document.getElementById("countryInfo")
 //get modal button
 var modalBtn = document.getElementById("modalBtn");
 //get close btn
-var closeBtn = document.getElementsByClassName("closeBtn")[0];
+var closeInfoBtn = document.getElementsByClassName("closeBtn")[0]
+var closeBtn = document.getElementsByClassName("closeBtn")[1];
 
 //listen for open click
 modalBtn.addEventListener("click", openModal);
 //listen for close click
+closeInfoBtn.addEventListener("click", closeCountryInfo);
 closeBtn.addEventListener("click", closeModal);
 
 //function to open modal
+function openCountryInfo() {
+  modalInfo.style.display = "block";
+}
 function openModal() {
   modal.style.display = "block";
 }
 //function to close modal
+function closeCountryInfo() {
+  modalInfo.style.display = "none";
+  var elm = document.getElementById("modalT");
+  elm.parentNode.remove(elm);
+}
 function closeModal() {
   modal.style.display = "none";
 }
+
