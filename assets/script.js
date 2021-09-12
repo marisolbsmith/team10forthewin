@@ -49,6 +49,7 @@ function getCountryInfo() {
       var weatherUrl = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2021-08-24/2021-08-31";
       var confirmedC = new Array;
       var deaths = new Array;
+      var stringencyN = new Array;
       fetch(weatherUrl)
         .then(function (response) {
           return response.json();
@@ -62,7 +63,7 @@ function getCountryInfo() {
           document.getElementById("countryContent").appendChild(modalHeader);
           var modalTitle = document.createElement("h2");
           modalTitle.setAttribute("class", "modal-card-title, has-text-centered");
-          modalTitle.setAttribute("id","modalT");
+          modalTitle.setAttribute("id", "modalT");
           modalTitle.setAttribute("style", "color:white");
           modalTitle.textContent = countryName;
           console.log(modalTitle);
@@ -82,6 +83,10 @@ function getCountryInfo() {
             totalC += confirmedC[b];
           }
           var avgConfirmed = totalC / confirmedC.length;
+          var confirmedCases = document.createElement("p");
+          confirmedCases.textContent = "Confirmed cases: " + Math.round(avgConfirmed);
+          confirmedCases.setAttribute("style", "color:white");
+          document.getElementById("countryContent").append(confirmedCases);
           console.log("Confirmed cases: " + Math.round(avgConfirmed));
 
           //data for deaths of users country
@@ -98,7 +103,32 @@ function getCountryInfo() {
             totalD += deaths[b];
           }
           var avgDeaths = totalD / deaths.length;
+          var confirmedDeaths = document.createElement("p");
+          confirmedDeaths.textContent = "Confirmed deaths: " + Math.round(avgDeaths);
+          confirmedDeaths.setAttribute("style", "color:white");
+          document.getElementById("countryContent").append(confirmedDeaths);
           console.log("Deaths: " + Math.round(avgDeaths));
+
+          //data for stringency of users country
+          for (let i = 24; i <= 31; i++) {
+            var dateS = "2021-08-" + i;
+            if (data.data[dateS][countryC] !== undefined) {
+              var stringency = data.data[dateS][countryC].stringency_legacy;
+              console.log(dateS + " " + stringency);
+              stringencyN.push(stringency);
+            }
+          }
+          var totalS = 0;
+          for (var b = 0; b < stringencyN.length; b++) {
+            totalS += stringencyN[b];
+          }
+          var avgStringency = totalS / stringencyN.length;
+          var stringencyNumber = document.createElement("p");
+          stringencyNumber.textContent = "Stringency Index: " + Math.round(avgStringency);
+          stringencyNumber.setAttribute("style", "color:white");
+          document.getElementById("countryContent").append(stringencyNumber);
+          console.log("Stringency Index: " + Math.round(avgStringency));
+
         })
       //Current weather for countrys capital
       var apiKey = "6c2b8de8ee027fb6f7f5fbbc52cf3406";
