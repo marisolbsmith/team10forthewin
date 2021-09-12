@@ -58,10 +58,11 @@ function getCountryInfo() {
           //Using console.log to examine the data
           console.log(data);
           var modalHeader = document.createElement("header");
-          modalHeader.setAttribute("class","modal-card-header");
+          modalHeader.setAttribute("class", "modal-card-header");
           document.getElementById("countryContent").appendChild(modalHeader);
           var modalTitle = document.createElement("h2");
           modalTitle.setAttribute("class", "modal-card-title, has-text-centered");
+          modalTitle.setAttribute("id","modalT");
           modalTitle.setAttribute("style", "color:white");
           modalTitle.textContent = countryName;
           console.log(modalTitle);
@@ -71,7 +72,7 @@ function getCountryInfo() {
             var dateC = "2021-08-" + i;
             if (data.data[dateC][countryC] !== undefined) {
               var cases = data.data[dateC][countryC].confirmed;
-              console.log(dateC+" "+cases);
+              console.log(dateC + " " + cases);
               confirmedC.push(cases);
             }
 
@@ -88,7 +89,7 @@ function getCountryInfo() {
             var dateD = "2021-08-" + i;
             if (data.data[dateD][countryC] !== undefined) {
               var deathCases = data.data[dateD][countryC].deaths;
-              console.log( dateD+" "+deathCases);
+              console.log(dateD + " " + deathCases);
               deaths.push(deathCases);
             }
           }
@@ -139,6 +140,8 @@ function openModal() {
 //function to close modal
 function closeCountryInfo() {
   modalInfo.style.display = "none";
+  var elm = document.getElementById("modalT");
+  elm.parentNode.remove(elm);
 }
 function closeModal() {
   modal.style.display = "none";
