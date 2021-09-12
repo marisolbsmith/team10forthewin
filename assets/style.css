@@ -32,16 +32,21 @@ body {
 }
 #countryContent{
   position: relative;
-  background-color:rgb(39, 52, 95) ;
+  background-color:rgb(14, 14, 189) ;
   margin: auto;
   padding: 0px;
   border: 1px solid #888;
   width: 30%; 
+  text-align: center;
 }
 .modal-card-header{
   padding: 2px 16px;
   color: white;
-  font-size: x-large;
+  font-size: x-large; 
+  font-weight: bold;
+}
+.modal-card-title{
+  font-weight: bold;
 }
 .MODAL {
   display: none;

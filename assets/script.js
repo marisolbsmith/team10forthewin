@@ -62,7 +62,7 @@ function getCountryInfo() {
           modalHeader.setAttribute("class", "modal-card-header");
           document.getElementById("countryContent").appendChild(modalHeader);
           var modalTitle = document.createElement("h2");
-          modalTitle.setAttribute("class", "modal-card-title, has-text-centered");
+          modalTitle.setAttribute("class", "modal-card-title");
           modalTitle.setAttribute("id", "modalT");
           modalTitle.setAttribute("style", "color:white");
           modalTitle.textContent = countryName;
@@ -86,6 +86,7 @@ function getCountryInfo() {
           var confirmedCases = document.createElement("p");
           confirmedCases.textContent = "Confirmed cases: " + Math.round(avgConfirmed);
           confirmedCases.setAttribute("style", "color:white");
+          confirmedCases.setAttribute("id", "modalC");
           document.getElementById("countryContent").append(confirmedCases);
           console.log("Confirmed cases: " + Math.round(avgConfirmed));
 
@@ -106,6 +107,7 @@ function getCountryInfo() {
           var confirmedDeaths = document.createElement("p");
           confirmedDeaths.textContent = "Confirmed deaths: " + Math.round(avgDeaths);
           confirmedDeaths.setAttribute("style", "color:white");
+          confirmedDeaths.setAttribute("id", "modalD");
           document.getElementById("countryContent").append(confirmedDeaths);
           console.log("Deaths: " + Math.round(avgDeaths));
 
@@ -126,23 +128,55 @@ function getCountryInfo() {
           var stringencyNumber = document.createElement("p");
           stringencyNumber.textContent = "Stringency Index: " + Math.round(avgStringency);
           stringencyNumber.setAttribute("style", "color:white");
+          stringencyNumber.setAttribute("id", "modalS");
           document.getElementById("countryContent").append(stringencyNumber);
           console.log("Stringency Index: " + Math.round(avgStringency));
 
-        })
-      //Current weather for countrys capital
-      var apiKey = "6c2b8de8ee027fb6f7f5fbbc52cf3406";
-      var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityN + "&appid=" + apiKey + "&units=imperial";
+          //Current weather for countrys capital
+          var apiKey = "6c2b8de8ee027fb6f7f5fbbc52cf3406";
+          var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityN + "&appid=" + apiKey + "&units=imperial";
 
-      fetch(weatherUrl)
-        .then(function (response) {
-          return response.json();
-        })
+          fetch(weatherUrl)
+            .then(function (response) {
+              return response.json();
+            })
 
-        .then(function (data) {
-          console.log(data);
-        })
+            .then(function (data) {
+              console.log(data);
+              var capitalDiv = document.createElement("div");
+              capitalDiv.setAttribute("id", "capitalW");
+              capitalDiv.style.borderTop = "thick solid rgb(39, 52, 95)";
+              var capitalWeather = document.createElement("p");
+              capitalWeather.setAttribute("style", "color:white");
+              capitalWeather.setAttribute("class", "modal-card-header")
+              capitalWeather.textContent = "Weather for Country's Capital";
+              capitalDiv.appendChild(capitalWeather);
+              var capitalName = document.createElement("p");
+              capitalName.setAttribute("style", "color:white");
+              capitalName.textContent = data.name;
+              capitalDiv.appendChild(capitalName);
+              document.getElementById("countryContent").appendChild(capitalDiv);
+              var weatherIcon = document.createElement("img");
+              var iconcode = data.weather[0].icon;
+              var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+              weatherIcon.src = iconurl;
+              weatherIcon.alt = data.weather[0].description;
+              capitalDiv.appendChild(weatherIcon);
+              var weatherTemp = document.createElement("p");
+              weatherTemp.setAttribute("style", "color:white");
+              weatherTemp.textContent = "Temp: " + data.main.temp + " °F";
+              capitalDiv.appendChild(weatherTemp);
+              var weatherWind = document.createElement("p");
+              weatherWind.setAttribute("style", "color:white");
+              weatherWind.textContent = "Wind: " + data.wind.speed + " MPH";
+              capitalDiv.appendChild(weatherWind);
+              var weatherHumidity = document.createElement("p");
+              weatherHumidity.setAttribute("style", "color:white");
+              weatherHumidity.textContent = "Humidity: " + data.main.humidity + " %";
+              capitalDiv.appendChild(weatherHumidity);
 
+            })
+        })
     })
 }
 //get modal element
@@ -171,7 +205,16 @@ function openModal() {
 function closeCountryInfo() {
   modalInfo.style.display = "none";
   var elm = document.getElementById("modalT");
-  elm.parentNode.remove(elm);
+  elm.innerHTML = "";
+  var elmC = document.getElementById("modalC");
+  elmC.innerHTML = "";
+  var elmD = document.getElementById("modalD");
+  elmD.innerHTML = "";
+  var elmS = document.getElementById("modalS");
+  elmS.innerHTML = "";
+  var elmW = document.getElementById("capitalW");
+  elmW.style.borderTop = "none";
+  elmW.innerHTML = "";
 }
 function closeModal() {
   modal.style.display = "none";
