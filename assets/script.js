@@ -29,6 +29,7 @@ var countryName;
 document.getElementById("countryList").addEventListener('change', (event) => {
   console.log(event.target.value)
   countryName = event.target.value;
+  openCountryInfo();
   getCountryInfo();
 });
 function getCountryInfo() {
@@ -56,6 +57,15 @@ function getCountryInfo() {
         .then(function (data) {
           //Using console.log to examine the data
           console.log(data);
+          var modalHeader = document.createElement("header");
+          modalHeader.setAttribute("class","modal-card-header");
+          document.getElementById("countryContent").appendChild(modalHeader);
+          var modalTitle = document.createElement("h2");
+          modalTitle.setAttribute("class", "modal-card-title, has-text-centered");
+          modalTitle.setAttribute("style", "color:white");
+          modalTitle.textContent = countryName;
+          console.log(modalTitle);
+          modalHeader.appendChild(modalTitle);
           //data for confirmed cases for users country
           for (let i = 24; i <= 31; i++) {
             var dateC = "2021-08-" + i;
@@ -106,21 +116,31 @@ function getCountryInfo() {
 }
 //get modal element
 var modal = document.getElementById("simpleModal");
+var modalInfo = document.getElementById("countryInfo")
 //get modal button
 var modalBtn = document.getElementById("modalBtn");
 //get close btn
-var closeBtn = document.getElementsByClassName("closeBtn")[0];
+var closeInfoBtn = document.getElementsByClassName("closeBtn")[0]
+var closeBtn = document.getElementsByClassName("closeBtn")[1];
 
 //listen for open click
 modalBtn.addEventListener("click", openModal);
 //listen for close click
+closeInfoBtn.addEventListener("click", closeCountryInfo);
 closeBtn.addEventListener("click", closeModal);
 
 //function to open modal
+function openCountryInfo() {
+  modalInfo.style.display = "block";
+}
 function openModal() {
   modal.style.display = "block";
 }
 //function to close modal
+function closeCountryInfo() {
+  modalInfo.style.display = "none";
+}
 function closeModal() {
   modal.style.display = "none";
 }
+
