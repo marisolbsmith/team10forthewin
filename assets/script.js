@@ -1,38 +1,18 @@
-/*create a btn with two choices (do you want a low risk vacation?)
-    if user clicks yes then modal is displayed
-        no - then modals is displayed with if you're sure
-            yes- choices wil be low risk 
-            no - (choices will be of medium/high risk)
-        yes - choices will be (dropdown?) :
-            LOW RISK
-                tropical/beach? suggested country: tanzania(TZA), nicaragua (NIC)
-                mountains/outdoor? suggested country: tajikistan(TJK)
-                snow/cold? suggested country: estonia (EST), tajikistan
-            MEDIUM RISK
-                tropical/beach? suggested country: croatia(HRV) , dominican republic (DOM)
-                mountains/outdoor? suggested country: finland
-                snow/cold? suggested country: iceland(ISL), finland (FIN)
-
-then based off those answers display facial coverings,vaccination policy, international travel controls with weather forecast.
-*/
-//Get modal ids for it to display then close when button is clicked
-//change from d-none to d-block
-//span x d-none
-// variable for choices
-/* from data get all the CC and D and put it in a array
-    confirmed cases (CC): data.data["2021-08-24"].{country code}.confirmed
-    deaths (D): data.data["2021-08-24"].{country code}.deaths
-   Array CC and D get the average
-   Then for each date average put into a new array and get the average for the whole date selected.
-*/
 var countryName;
+var storedCountry = [];
+var searchHistory = document.getElementById("searchHistory");
+//When user chooses country a modal should pop up with its information
 document.getElementById("countryList").addEventListener('change', (event) => {
   console.log(event.target.value)
   countryName = event.target.value;
-  openCountryInfo();
-  getCountryInfo();
+  storedCountry.push(countryName);
+  localStorage.setItem("storedCountry", JSON.stringify(storedCountry));
+  searchH();
+  openCountryInfo(countryName);
+  getCountryInfo(countryName);
 });
-function getCountryInfo() {
+//Displays countrys information in modal
+function getCountryInfo(countryName) {
   var isoCode = "https://restcountries.eu/rest/v2/name/" + countryName;
   var countryC = "";
   var cityN;
@@ -42,8 +22,6 @@ function getCountryInfo() {
     })
 
     .then(function (data) {
-      //Using console.log to examine the data
-      console.log(data);
       countryC = data[0].alpha3Code;
       cityN = data[0].capital;
       var weatherUrl = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2021-08-24/2021-08-31";
@@ -56,24 +34,21 @@ function getCountryInfo() {
         })
 
         .then(function (data) {
-          //Using console.log to examine the data
-          console.log(data);
           var modalHeader = document.createElement("header");
           modalHeader.setAttribute("class", "modal-card-header");
           document.getElementById("countryContent").appendChild(modalHeader);
           var modalTitle = document.createElement("h2");
           modalTitle.setAttribute("class", "modal-card-title");
-          modalTitle.setAttribute("id", "modalT");
+          modalTitle.setAttribute("id","modalT");
           modalTitle.setAttribute("style", "color:white");
           modalTitle.textContent = countryName;
-          console.log(modalTitle);
           modalHeader.appendChild(modalTitle);
+
           //data for confirmed cases for users country
           for (let i = 24; i <= 31; i++) {
             var dateC = "2021-08-" + i;
             if (data.data[dateC][countryC] !== undefined) {
               var cases = data.data[dateC][countryC].confirmed;
-              console.log(dateC + " " + cases);
               confirmedC.push(cases);
             }
 
@@ -88,14 +63,12 @@ function getCountryInfo() {
           confirmedCases.setAttribute("style", "color:white");
           confirmedCases.setAttribute("id", "modalC");
           document.getElementById("countryContent").append(confirmedCases);
-          console.log("Confirmed cases: " + Math.round(avgConfirmed));
 
           //data for deaths of users country
           for (let i = 24; i <= 31; i++) {
             var dateD = "2021-08-" + i;
             if (data.data[dateD][countryC] !== undefined) {
               var deathCases = data.data[dateD][countryC].deaths;
-              console.log(dateD + " " + deathCases);
               deaths.push(deathCases);
             }
           }
@@ -116,7 +89,6 @@ function getCountryInfo() {
             var dateS = "2021-08-" + i;
             if (data.data[dateS][countryC] !== undefined) {
               var stringency = data.data[dateS][countryC].stringency_legacy;
-              console.log(dateS + " " + stringency);
               stringencyN.push(stringency);
             }
           }
@@ -142,7 +114,6 @@ function getCountryInfo() {
             })
 
             .then(function (data) {
-              console.log(data);
               var capitalDiv = document.createElement("div");
               capitalDiv.setAttribute("id", "capitalW");
               capitalDiv.style.borderTop = "thick solid rgb(39, 52, 95)";
@@ -179,6 +150,33 @@ function getCountryInfo() {
         })
     })
 }
+//Retrieves user country from local storage and appears as button
+function searchH() {
+  searchHistory.innerHTML = "";
+  storedCountry = JSON.parse(localStorage.getItem("storedCountry"));
+  var countryList = document.createElement("ul");
+  searchHistory.appendChild(countryList);
+  if (!storedCountry) {
+    storedCountry = [];
+    return false;
+  }
+  for (let i = 0; i < storedCountry.length; i++) {
+    var historyBtn = document.createElement("button");
+    historyBtn.setAttribute("class", "button is-info");
+    console.log(storedCountry[i]);
+    historyBtn.value = storedCountry[i];
+    historyBtn.textContent = historyBtn.value;
+    console.log(storedCountry[i]);
+    //When user clicks on previous country modal should pop along with its information
+    historyBtn.addEventListener("click", function () {
+      getCountryInfo(storedCountry[i]);
+      openCountryInfo()
+    })
+    countryList.prepend(historyBtn);
+  }
+
+}
+searchH();
 //get modal element
 var modal = document.getElementById("simpleModal");
 var modalInfo = document.getElementById("countryInfo")
@@ -204,17 +202,17 @@ function openModal() {
 //function to close modal
 function closeCountryInfo() {
   modalInfo.style.display = "none";
+  //Deletes previous countrys information on modal
   var elm = document.getElementById("modalT");
-  elm.innerHTML = "";
+  elm.remove();
   var elmC = document.getElementById("modalC");
-  elmC.innerHTML = "";
+  elmC.remove();
   var elmD = document.getElementById("modalD");
-  elmD.innerHTML = "";
+  elmD.remove();
   var elmS = document.getElementById("modalS");
-  elmS.innerHTML = "";
+  elmS.remove();
   var elmW = document.getElementById("capitalW");
-  elmW.style.borderTop = "none";
-  elmW.innerHTML = "";
+  elmW.remove();
 }
 function closeModal() {
   modal.style.display = "none";
