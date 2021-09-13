@@ -26,13 +26,18 @@ then based off those answers display facial coverings,vaccination policy, intern
    Then for each date average put into a new array and get the average for the whole date selected.
 */
 var countryName;
+var storedCountry = [];
+var searchHistory = document.getElementById("searchHistory");
 document.getElementById("countryList").addEventListener('change', (event) => {
   console.log(event.target.value)
   countryName = event.target.value;
-  openCountryInfo();
-  getCountryInfo();
+  storedCountry.push(countryName);
+  localStorage.setItem("storedCountry", JSON.stringify(storedCountry));
+  searchH();
+  openCountryInfo(countryName);
+  getCountryInfo(countryName);
 });
-function getCountryInfo() {
+function getCountryInfo(countryName) {
   var isoCode = "https://restcountries.eu/rest/v2/name/" + countryName;
   var countryC = "";
   var cityN;
@@ -63,10 +68,9 @@ function getCountryInfo() {
           document.getElementById("countryContent").appendChild(modalHeader);
           var modalTitle = document.createElement("h2");
           modalTitle.setAttribute("class", "modal-card-title");
-          modalTitle.setAttribute("id", "modalT");
+          modalTitle.setAttribute("id","modalT");
           modalTitle.setAttribute("style", "color:white");
           modalTitle.textContent = countryName;
-          console.log(modalTitle);
           modalHeader.appendChild(modalTitle);
           //data for confirmed cases for users country
           for (let i = 24; i <= 31; i++) {
@@ -131,7 +135,6 @@ function getCountryInfo() {
           stringencyNumber.setAttribute("id", "modalS");
           document.getElementById("countryContent").append(stringencyNumber);
           console.log("Stringency Index: " + Math.round(avgStringency));
-
           //Current weather for countrys capital
           var apiKey = "6c2b8de8ee027fb6f7f5fbbc52cf3406";
           var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityN + "&appid=" + apiKey + "&units=imperial";
@@ -179,6 +182,32 @@ function getCountryInfo() {
         })
     })
 }
+//Retrieves user country from local storage and appears as button
+function searchH() {
+  searchHistory.innerHTML = "";
+  storedCountry = JSON.parse(localStorage.getItem("storedCountry"));
+  var countryList = document.createElement("ul");
+  searchHistory.appendChild(countryList);
+  if (!storedCountry) {
+    storedCountry = [];
+    return false;
+  }
+  for (let i = 0; i < storedCountry.length; i++) {
+    var historyBtn = document.createElement("button");
+    historyBtn.setAttribute("class", "button");
+    console.log(storedCountry[i]);
+    historyBtn.value = storedCountry[i];
+    historyBtn.textContent = historyBtn.value;
+    console.log(storedCountry[i]);
+    historyBtn.addEventListener("click", function () {
+      getCountryInfo(storedCountry[i]);
+      openCountryInfo()
+    })
+    countryList.prepend(historyBtn);
+  }
+
+}
+searchH();
 //get modal element
 var modal = document.getElementById("simpleModal");
 var modalInfo = document.getElementById("countryInfo")
@@ -205,16 +234,15 @@ function openModal() {
 function closeCountryInfo() {
   modalInfo.style.display = "none";
   var elm = document.getElementById("modalT");
-  elm.innerHTML = "";
+  elm.remove();
   var elmC = document.getElementById("modalC");
-  elmC.innerHTML = "";
+  elmC.remove();
   var elmD = document.getElementById("modalD");
-  elmD.innerHTML = "";
+  elmD.remove();
   var elmS = document.getElementById("modalS");
-  elmS.innerHTML = "";
+  elmS.remove();
   var elmW = document.getElementById("capitalW");
-  elmW.style.borderTop = "none";
-  elmW.innerHTML = "";
+  elmW.remove();
 }
 function closeModal() {
   modal.style.display = "none";
