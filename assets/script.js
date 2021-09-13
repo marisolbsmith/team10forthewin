@@ -1,33 +1,7 @@
-/*create a btn with two choices (do you want a low risk vacation?)
-    if user clicks yes then modal is displayed
-        no - then modals is displayed with if you're sure
-            yes- choices wil be low risk 
-            no - (choices will be of medium/high risk)
-        yes - choices will be (dropdown?) :
-            LOW RISK
-                tropical/beach? suggested country: tanzania(TZA), nicaragua (NIC)
-                mountains/outdoor? suggested country: tajikistan(TJK)
-                snow/cold? suggested country: estonia (EST), tajikistan
-            MEDIUM RISK
-                tropical/beach? suggested country: croatia(HRV) , dominican republic (DOM)
-                mountains/outdoor? suggested country: finland
-                snow/cold? suggested country: iceland(ISL), finland (FIN)
-
-then based off those answers display facial coverings,vaccination policy, international travel controls with weather forecast.
-*/
-//Get modal ids for it to display then close when button is clicked
-//change from d-none to d-block
-//span x d-none
-// variable for choices
-/* from data get all the CC and D and put it in a array
-    confirmed cases (CC): data.data["2021-08-24"].{country code}.confirmed
-    deaths (D): data.data["2021-08-24"].{country code}.deaths
-   Array CC and D get the average
-   Then for each date average put into a new array and get the average for the whole date selected.
-*/
 var countryName;
 var storedCountry = [];
 var searchHistory = document.getElementById("searchHistory");
+//When user chooses country a modal should pop up with its information
 document.getElementById("countryList").addEventListener('change', (event) => {
   console.log(event.target.value)
   countryName = event.target.value;
@@ -37,6 +11,7 @@ document.getElementById("countryList").addEventListener('change', (event) => {
   openCountryInfo(countryName);
   getCountryInfo(countryName);
 });
+//Displays countrys information in modal
 function getCountryInfo(countryName) {
   var isoCode = "https://restcountries.eu/rest/v2/name/" + countryName;
   var countryC = "";
@@ -47,8 +22,6 @@ function getCountryInfo(countryName) {
     })
 
     .then(function (data) {
-      //Using console.log to examine the data
-      console.log(data);
       countryC = data[0].alpha3Code;
       cityN = data[0].capital;
       var weatherUrl = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2021-08-24/2021-08-31";
@@ -61,8 +34,6 @@ function getCountryInfo(countryName) {
         })
 
         .then(function (data) {
-          //Using console.log to examine the data
-          console.log(data);
           var modalHeader = document.createElement("header");
           modalHeader.setAttribute("class", "modal-card-header");
           document.getElementById("countryContent").appendChild(modalHeader);
@@ -72,12 +43,12 @@ function getCountryInfo(countryName) {
           modalTitle.setAttribute("style", "color:white");
           modalTitle.textContent = countryName;
           modalHeader.appendChild(modalTitle);
+
           //data for confirmed cases for users country
           for (let i = 24; i <= 31; i++) {
             var dateC = "2021-08-" + i;
             if (data.data[dateC][countryC] !== undefined) {
               var cases = data.data[dateC][countryC].confirmed;
-              console.log(dateC + " " + cases);
               confirmedC.push(cases);
             }
 
@@ -92,14 +63,12 @@ function getCountryInfo(countryName) {
           confirmedCases.setAttribute("style", "color:white");
           confirmedCases.setAttribute("id", "modalC");
           document.getElementById("countryContent").append(confirmedCases);
-          console.log("Confirmed cases: " + Math.round(avgConfirmed));
 
           //data for deaths of users country
           for (let i = 24; i <= 31; i++) {
             var dateD = "2021-08-" + i;
             if (data.data[dateD][countryC] !== undefined) {
               var deathCases = data.data[dateD][countryC].deaths;
-              console.log(dateD + " " + deathCases);
               deaths.push(deathCases);
             }
           }
@@ -120,7 +89,6 @@ function getCountryInfo(countryName) {
             var dateS = "2021-08-" + i;
             if (data.data[dateS][countryC] !== undefined) {
               var stringency = data.data[dateS][countryC].stringency_legacy;
-              console.log(dateS + " " + stringency);
               stringencyN.push(stringency);
             }
           }
@@ -135,6 +103,7 @@ function getCountryInfo(countryName) {
           stringencyNumber.setAttribute("id", "modalS");
           document.getElementById("countryContent").append(stringencyNumber);
           console.log("Stringency Index: " + Math.round(avgStringency));
+
           //Current weather for countrys capital
           var apiKey = "6c2b8de8ee027fb6f7f5fbbc52cf3406";
           var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityN + "&appid=" + apiKey + "&units=imperial";
@@ -145,7 +114,6 @@ function getCountryInfo(countryName) {
             })
 
             .then(function (data) {
-              console.log(data);
               var capitalDiv = document.createElement("div");
               capitalDiv.setAttribute("id", "capitalW");
               capitalDiv.style.borderTop = "thick solid rgb(39, 52, 95)";
@@ -199,6 +167,7 @@ function searchH() {
     historyBtn.value = storedCountry[i];
     historyBtn.textContent = historyBtn.value;
     console.log(storedCountry[i]);
+    //When user clicks on previous country modal should pop along with its information
     historyBtn.addEventListener("click", function () {
       getCountryInfo(storedCountry[i]);
       openCountryInfo()
@@ -233,6 +202,7 @@ function openModal() {
 //function to close modal
 function closeCountryInfo() {
   modalInfo.style.display = "none";
+  //Deletes previous countrys information on modal
   var elm = document.getElementById("modalT");
   elm.remove();
   var elmC = document.getElementById("modalC");
