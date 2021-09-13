@@ -194,7 +194,7 @@ function searchH() {
   }
   for (let i = 0; i < storedCountry.length; i++) {
     var historyBtn = document.createElement("button");
-    historyBtn.setAttribute("class", "button");
+    historyBtn.setAttribute("class", "button is-info");
     console.log(storedCountry[i]);
     historyBtn.value = storedCountry[i];
     historyBtn.textContent = historyBtn.value;
