@@ -18,7 +18,7 @@ body {
 .button:hover {
   background: rgb(87, 16, 16);
 }
-#countryInfo{
+#countryInfo {
   display: none;
   position: fixed;
   z-index: 1;
@@ -28,25 +28,25 @@ body {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
-#countryContent{
+#countryContent {
   position: relative;
-  background-color:rgb(14, 14, 189) ;
+  background-color: rgb(14, 14, 189);
   margin: auto;
   padding: 0px;
   border: 1px solid #888;
-  width: 30%; 
+  width: 30%;
   text-align: center;
 }
-.modal-card-header{
+.modal-card-header {
   padding: 2px 16px;
   color: white;
-  font-size: x-large; 
+  font-size: x-large;
   font-weight: bold;
 }
-.modal-card-title{
+.modal-card-title {
   font-weight: bold;
 }
 .MODAL {
