@@ -13,24 +13,22 @@
   </head>
 
   <body>
-    <iframe
-      src="https://ourworldindata.org/grapher/covid-stringency-index"
-      loading="lazy"
-      style="width: 70%; height: 600px; border: 0px none"
-    ></iframe>
-    <button id="modalBtn" class="button">Click Here</button>
-    <div
-      class="select is-pulled-right"
-      style="width: 200px !important; min-width: 200px; max-width: 200px"
-    >
+  <iframe src="https://ourworldindata.org/grapher/covid-stringency-index" loading="lazy"
+    style="height: 600px" id="map"></iframe>
+  <div id="asideB">
+    <button id="modalBtn" class="button is-fullwidth">Click Here</button>
+    <div class="select is-info mt-2 mb-2">
       <select id="countryList">
         <option>Select a country</option>
       </select>
     </div>
-    <div id="countryInfo" class="MODAL">
-      <div class="modal-content" id="countryContent">
-        <span class="closeBtn">&times;</span>
-      </div>
+
+    <button id="clearHistoryBtn" class="button is-fullwidth is-danger is-outlined">Clear History</button>
+    <div class="buttons mt-2" id="searchHistory"></div>
+  </div>
+  <div id="countryInfo" class="MODAL">
+    <div class="modal-content" id="countryContent">
+      <span class="closeBtn">&times;</span>
     </div>
     <div id="simpleModal" class="MODAL">
       <div class="modal-content">

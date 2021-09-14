@@ -78,3 +78,20 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+#asideB{
+  float: none;
+  width: 100%;
+}
+#map {
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  #map{
+    width: 70%; 
+    border: 0px none;
+  }
+  #asideB{
+  float: right;
+  width: 30%;
+  }
+}
