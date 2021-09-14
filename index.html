@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Low Risk Vacay</title>
-    <link rel="stylesheet" href="./assets/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Low Risk Vacay</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+</head>
+
+<body>
   <iframe src="https://ourworldindata.org/grapher/covid-stringency-index" loading="lazy"
     style="height: 600px" id="map"></iframe>
   <div id="asideB">
@@ -22,7 +20,6 @@
         <option>Select a country</option>
       </select>
     </div>
-
     <button id="clearHistoryBtn" class="button is-fullwidth is-danger is-outlined">Clear History</button>
     <div class="buttons mt-2" id="searchHistory"></div>
   </div>
@@ -30,118 +27,120 @@
     <div class="modal-content" id="countryContent">
       <span class="closeBtn">&times;</span>
     </div>
-    <div id="simpleModal" class="MODAL">
-      <div class="modal-content">
-        <span class="closeBtn">&times;</span>
-        <p>
-          Welcome to Low risk Vacay! Let us help you find your next vacation
-          spot where you can relax knowing your chances of catching the RONA is
-          low! We have calculated some of the lowest risk countries for you and
-          given pictures and small details about the places below. Use the
-          dropdown to choose the country you desire to visit and find out
-          stringency, covid cases and covid deaths.
-        </p>
-      </div>
+  </div>
+  <div id="simpleModal" class="MODAL">
+    <div class="modal-content">
+      <span class="closeBtn">&times;</span>
+      <p>
+        Welcome to Low risk Vacay! Let us help you find your next vacation
+        spot where you can relax knowing your chances of catching the RONA is
+        low! We have calculated some of the lowest risk countries for you and
+        given pictures and small details about the places below. Use the
+        dropdown to choose the country you desire to visit and find out
+        stringency, covid cases and covid deaths.
+      </p>
     </div>
-    <div class="tile is-ancestor">
-      <div class="tile is-vertical is-8">
-        <div class="tile">
-          <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-primary">
-              <p class="title"></p>
-              <p class="subtitle">Places we Recommend ♥</p>
-            </article>
-            <article class="tile is-child notification is-warning">
-              <p class="title">Nicaragua</p>
-              <p class="subtitle">Get your Beach on🏖</p>
-              <figure class="image is-4by3">
-                <img src="./images/nicaragua.jpg" />
-              </figure>
-              <div class="content">
-                The largest country in the Central American isthmus, bordered by
-                Honduras to the northwest, the Caribbean to the east, Costa Rica
-                to the south, and the Pacific Ocean to the southwest. Managua is
-                the country's capital and largest city and is also the
-                third-largest city in Central America, behind Tegucigalpa and
-                Guatemala City. The multi-ethnic population of six million
-                includes people of indigenous, European, African, and Asian
-                heritage. The main language is Spanish. Indigenous tribes on the
-                Mosquito Coast speak their own languages and English.
-              </div>
-            </article>
-          </div>
-          <div class="tile is-parent">
-            <article class="tile is-child notification is-info">
-              <p class="title">Estonia</p>
-              <p class="subtitle">The Cozy Cold Viallage❄</p>
-              <figure class="image is-4by3">
-                <img src="./images/estonia.jpg" />
-              </figure>
-              <div class="content">
-                A country in Northern Europe. It is bordered to the north by the
-                Gulf of Finland acrossrom Finland , to the west by the Baltic
-                Sea across from Sweden, to the south by Latvia, and to the east
-                by Lake Peipus and Russia. The territory of Estonia consists of
-                the mainland and of 2,222 islands on the eastern coast of the
-                Baltic Sea.
-              </div>
-            </article>
-          </div>
+  </div>
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+      <div class="tile">
+        <div class="tile is-parent is-vertical">
+          <article class="tile is-child notification is-primary">
+            <p class="title"></p>
+            <p class="subtitle">Places we Recommend ♥</p>
+          </article>
+          <article class="tile is-child notification is-warning">
+            <p class="title">Nicaragua</p>
+            <p class="subtitle">Get your Beach on🏖</p>
+            <figure class="image is-4by3">
+              <img src="./images/nicaragua.jpg" />
+            </figure>
+            <div class="content">
+              The largest country in the Central American isthmus, bordered by
+              Honduras to the northwest, the Caribbean to the east, Costa Rica
+              to the south, and the Pacific Ocean to the southwest. Managua is
+              the country's capital and largest city and is also the
+              third-largest city in Central America, behind Tegucigalpa and
+              Guatemala City. The multi-ethnic population of six million
+              includes people of indigenous, European, African, and Asian
+              heritage. The main language is Spanish. Indigenous tribes on the
+              Mosquito Coast speak their own languages and English.
+            </div>
+          </article>
         </div>
         <div class="tile is-parent">
-          <article class="tile is-child notification is-danger">
-            <p class="title">Tanzania</p>
-            <p class="subtitle">An African Safari🐘</p>
-            <div class="content">
-              A country in East Africa within the African Great Lakes region. It
-              borders Uganda to the north; Kenya to the northeast; Comoro
-              Islands and the Indian Ocean to the east; Mozambique and Malawi to
-              the south; Zambia to the southwest; and Rwanda, Burundi, and the
-              Democratic Republic of the Congo to the west. Mount Kilimanjaro,
-              Africa's highest mountain, is in northeastern Tanzania.
-            </div>
+          <article class="tile is-child notification is-info">
+            <p class="title">Estonia</p>
+            <p class="subtitle">The Cozy Cold Viallage❄</p>
             <figure class="image is-4by3">
-              <img src="./images/tanzania.jpeg" />
+              <img src="./images/estonia.jpg" />
             </figure>
+            <div class="content">
+              A country in Northern Europe. It is bordered to the north by the
+              Gulf of Finland acrossrom Finland , to the west by the Baltic
+              Sea across from Sweden, to the south by Latvia, and to the east
+              by Lake Peipus and Russia. The territory of Estonia consists of
+              the mainland and of 2,222 islands on the eastern coast of the
+              Baltic Sea.
+            </div>
           </article>
         </div>
       </div>
       <div class="tile is-parent">
-        <article class="tile is-child notification is-success">
+        <article class="tile is-child notification is-danger">
+          <p class="title">Tanzania</p>
+          <p class="subtitle">An African Safari🐘</p>
           <div class="content">
-            <p class="title">Tajikistan</p>
-            <p class="subtitle">Mountains that move your ♥</p>
-            <div class="content">
-              a landlocked country in Central Asia with an area of 143,100 km2
-              (55,300 sq mi)[6][7][8] and an estimated population of 9,537,645
-              people.[15] Its capital and largest city is Dushanbe. It is
-              bordered by Afghanistan to the south, Uzbekistan to the west,
-              Kyrgyzstan to the north and ina to the east. The traditional
-              homelands of the Tajik people include present-day Tajikistan as
-              well as parts of Afghanistan.
-            </div>
+            A country in East Africa within the African Great Lakes region. It
+            borders Uganda to the north; Kenya to the northeast; Comoro
+            Islands and the Indian Ocean to the east; Mozambique and Malawi to
+            the south; Zambia to the southwest; and Rwanda, Burundi, and the
+            Democratic Republic of the Congo to the west. Mount Kilimanjaro,
+            Africa's highest mountain, is in northeastern Tanzania.
           </div>
           <figure class="image is-4by3">
-            <img src="./images/tajikistan.jpg" />
-          </figure>
-          <br />
-          <br />
-          <br />
-          <br />
-          <figure class="image is-4by3">
-            <img src="./images/tajikistan3.jpg" />
-          </figure>
-          <br />
-          <br />
-          <br />
-          <br />
-          <figure class="image is-4by3">
-            <img src="./images/tajikistan2.jpg " />
+            <img src="./images/tanzania.jpeg" />
           </figure>
         </article>
       </div>
     </div>
-    <script src="./assets/countryList.js"></script>
-    <script src="./assets/script.js"></script>
-  </body>
+    <div class="tile is-parent">
+      <article class="tile is-child notification is-success">
+        <div class="content">
+          <p class="title">Tajikistan</p>
+          <p class="subtitle">Mountains that move your ♥</p>
+          <div class="content">
+            a landlocked country in Central Asia with an area of 143,100 km2
+            (55,300 sq mi)[6][7][8] and an estimated population of 9,537,645
+            people.[15] Its capital and largest city is Dushanbe. It is
+            bordered by Afghanistan to the south, Uzbekistan to the west,
+            Kyrgyzstan to the north and ina to the east. The traditional
+            homelands of the Tajik people include present-day Tajikistan as
+            well as parts of Afghanistan.
+          </div>
+        </div>
+        <figure class="image is-4by3">
+          <img src="./images/tajikistan.jpg" />
+        </figure>
+        <br />
+        <br />
+        <br />
+        <br />
+        <figure class="image is-4by3">
+          <img src="./images/tajikistan3.jpg" />
+        </figure>
+        <br />
+        <br />
+        <br />
+        <br />
+        <figure class="image is-4by3">
+          <img src="./images/tajikistan2.jpg " />
+        </figure>
+      </article>
+    </div>
+  </div>
+  <script src="./assets/countryList.js"></script>
+  <script src="./assets/script.js"></script>
+</body>
+
 </html>
