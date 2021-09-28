@@ -13,7 +13,7 @@ document.getElementById("countryList").addEventListener('change', (event) => {
 });
 //Displays countrys information in modal
 function getCountryInfo(countryName) {
-  var isoCode = "https://restcountries.eu/rest/v2/name/" + countryName;
+  var isoCode = "https://restcountries.com/v3/name/" + countryName;
   var countryC = "";
   var cityN;
   fetch(isoCode)
@@ -22,7 +22,8 @@ function getCountryInfo(countryName) {
     })
 
     .then(function (data) {
-      countryC = data[0].alpha3Code;
+      console.log(data);
+      countryC = data[0].cca3;
       cityN = data[0].capital;
       var weatherUrl = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/2021-08-24/2021-08-31";
       var confirmedC = new Array;
