@@ -11,7 +11,7 @@ fetch(queryUrl)
 
     .then(function (data) {
         countryList = data.countries;
-        fetch("https://restcountries.eu/rest/v2/all")
+        fetch("https://restcountries.com/v3/all")
             .then(function (response) {
                 return response.json();
             })
@@ -19,8 +19,8 @@ fetch(queryUrl)
                 //changes country code into country name
                 countryList.forEach(element => {
                     for (let c = 0; c < 250; c++) {
-                        if (element === data[c].alpha3Code) {
-                            var countryN = data[c].name;
+                        if (element === data[c].cca3) {
+                            var countryN = data[c].name['common'];
                             countryListName.push(countryN);
                         }
                     }
